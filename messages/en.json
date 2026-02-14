@@ -67,6 +67,16 @@
     "addNote": "Add a note...",
     "notes": "Notes"
   },
+  "auth": {
+    "title": "Sign In",
+    "subtitle": "Enter the shared password to continue",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "Enter password...",
+    "signIn": "Sign In",
+    "signOut": "Sign Out",
+    "invalidPassword": "Invalid password. Please try again.",
+    "signingIn": "Signing in..."
+  },
   "language": {
     "switchTo": "Switch language",
     "en": "English",

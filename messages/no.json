@@ -67,6 +67,16 @@
     "addNote": "Legg til et notat...",
     "notes": "Notater"
   },
+  "auth": {
+    "title": "Logg inn",
+    "subtitle": "Skriv inn det delte passordet for a fortsette",
+    "passwordLabel": "Passord",
+    "passwordPlaceholder": "Skriv inn passord...",
+    "signIn": "Logg inn",
+    "signOut": "Logg ut",
+    "invalidPassword": "Ugyldig passord. Vennligst prov igjen.",
+    "signingIn": "Logger inn..."
+  },
   "language": {
     "switchTo": "Bytt sprak",
     "en": "English",
