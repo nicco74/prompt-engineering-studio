@@ -1,0 +1,75 @@
+{
+  "common": {
+    "appName": "Prompt-teknikk Studio",
+    "loading": "Laster...",
+    "error": "Noe gikk galt",
+    "save": "Lagre",
+    "cancel": "Avbryt",
+    "edit": "Rediger",
+    "delete": "Slett",
+    "close": "Lukk",
+    "back": "Tilbake",
+    "next": "Neste",
+    "previous": "Forrige",
+    "search": "Sok...",
+    "noResults": "Ingen resultater funnet",
+    "copyPrompt": "Kopier prompt",
+    "copied": "Kopiert!"
+  },
+  "nav": {
+    "home": "Hjem",
+    "examples": "Eksempler",
+    "sandbox": "Ovingssandkasse",
+    "collection": "Min samling"
+  },
+  "home": {
+    "title": "Laer a bruke AI-prompter",
+    "subtitle": "Mestre kunsten a skrive gode AI-prompter gjennom interaktive eksempler og praktisk oving",
+    "getStarted": "Kom i gang",
+    "browseExamples": "Utforsk eksempler",
+    "trySandbox": "Prov sandkassen"
+  },
+  "examples": {
+    "title": "Prompt-eksempler",
+    "subtitle": "Studer virkelige eksempler pa prompt-forbedring pa tvers av ulike arbeidsscenarier",
+    "version": "Versjon",
+    "changes": "Endringer",
+    "pros": "Fordeler",
+    "cons": "Ulemper",
+    "feedback": "Tilbakemelding",
+    "why": "Hvorfor denne endringen",
+    "tips": "Tips til prompt-teknikk",
+    "output": "AI-resultat forhandsvisning",
+    "regenerate": "Regenerer forhandsvisning",
+    "beginner": "Nybegynner",
+    "intermediate": "Middels",
+    "advanced": "Avansert"
+  },
+  "categories": {
+    "contentMarketing": "Innhold og markedsforing",
+    "businessDocs": "Forretningsdokumenter",
+    "internalComms": "Intern kommunikasjon"
+  },
+  "sandbox": {
+    "title": "Ovingssandkasse",
+    "subtitle": "Skriv dine egne prompter og fa AI-tilbakemelding pa hvordan du kan forbedre dem",
+    "placeholder": "Skriv prompten din her...",
+    "submit": "Send prompt",
+    "getFeedback": "Fa tilbakemelding",
+    "aiResponse": "AI-svar",
+    "promptFeedback": "Prompt-tilbakemelding",
+    "requestsRemaining": "foresporsler igjen"
+  },
+  "collection": {
+    "title": "Min samling",
+    "subtitle": "Dine bokmerkede eksempler og personlige notater",
+    "noBookmarks": "Ingen bokmerker enna. Utforsk eksempler og bokmerk favorittene dine!",
+    "addNote": "Legg til et notat...",
+    "notes": "Notater"
+  },
+  "language": {
+    "switchTo": "Bytt sprak",
+    "en": "English",
+    "no": "Norsk"
+  }
+}

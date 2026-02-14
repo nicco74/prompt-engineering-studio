@@ -1,0 +1,75 @@
+{
+  "common": {
+    "appName": "Prompt Engineering Studio",
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "search": "Search...",
+    "noResults": "No results found",
+    "copyPrompt": "Copy Prompt",
+    "copied": "Copied!"
+  },
+  "nav": {
+    "home": "Home",
+    "examples": "Examples",
+    "sandbox": "Practice Sandbox",
+    "collection": "My Collection"
+  },
+  "home": {
+    "title": "Learn to Prompt AI",
+    "subtitle": "Master the art of AI prompting through interactive examples and hands-on practice",
+    "getStarted": "Get Started",
+    "browseExamples": "Browse Examples",
+    "trySandbox": "Try the Sandbox"
+  },
+  "examples": {
+    "title": "Prompt Examples",
+    "subtitle": "Study real-world examples of prompt refinement across different work scenarios",
+    "version": "Version",
+    "changes": "Changes",
+    "pros": "Pros",
+    "cons": "Cons",
+    "feedback": "Feedback",
+    "why": "Why This Change",
+    "tips": "Prompt Engineering Tips",
+    "output": "AI Output Preview",
+    "regenerate": "Regenerate Preview",
+    "beginner": "Beginner",
+    "intermediate": "Intermediate",
+    "advanced": "Advanced"
+  },
+  "categories": {
+    "contentMarketing": "Content & Marketing",
+    "businessDocs": "Business Documents",
+    "internalComms": "Internal Communications"
+  },
+  "sandbox": {
+    "title": "Practice Sandbox",
+    "subtitle": "Write your own prompts and get AI feedback on how to improve them",
+    "placeholder": "Type your prompt here...",
+    "submit": "Send Prompt",
+    "getFeedback": "Get Feedback",
+    "aiResponse": "AI Response",
+    "promptFeedback": "Prompt Feedback",
+    "requestsRemaining": "requests remaining"
+  },
+  "collection": {
+    "title": "My Collection",
+    "subtitle": "Your bookmarked examples and personal notes",
+    "noBookmarks": "No bookmarks yet. Browse examples and bookmark your favorites!",
+    "addNote": "Add a note...",
+    "notes": "Notes"
+  },
+  "language": {
+    "switchTo": "Switch language",
+    "en": "English",
+    "no": "Norsk"
+  }
+}
