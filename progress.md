@@ -315,3 +315,154 @@
 
 ### Next steps
 - Phase 9: Enhanced feedback with structured JSON output
+
+---
+
+## Phase 10: Internationalization — Full Content & UI
+**Status:** COMPLETE
+**Date:** 2026-02-14
+
+### What was done
+- Audited `messages/en.json` and `messages/no.json` — confirmed full key parity (96 keys each, all matching)
+- Created build-time message key parity validation script (`src/i18n/validate-messages.ts`) that:
+  - Recursively compares all keys in both message files
+  - Reports missing keys in either direction
+  - Exits with error code 1 if any mismatch is found
+  - Integrated into the build pipeline (runs before content validation and next build)
+- Chose Option A: added optional `_no` suffix fields to content types (inline Norwegian alongside English)
+- Added Norwegian fields to TypeScript interfaces: `PromptStep` (8 fields), `Example` (2 fields), `Category` (2 fields)
+- Added corresponding optional Zod schema fields for validation
+- Added natively-authored Norwegian content to all 6 curated examples (24 steps total):
+  - `title_no`, `description_no` on each example
+  - `prompt_no`, `changes_no`, `pros_no`, `cons_no`, `feedback_no`, `why_no`, `tips_no`, `aiOutput_no` on each step
+- Added `name_no` and `description_no` to all 3 categories
+- Created centralized locale-aware content accessor utility (`src/content/localized.ts`) with 12 helper functions
+- Updated all UI components to use localized content via `useLocale()`:
+  - `prompt-step-view.tsx` — all content fields use localized helpers
+  - `example-card.tsx` — title and description localized
+  - `category-card.tsx` — name and description localized
+  - `output-preview.tsx` — added `break-words` for longer Norwegian strings
+  - `example-search.tsx` — extended interfaces with `_no` fields, locale-aware rendering
+- Updated all pages to pass and render localized data:
+  - `examples/[category]/[slug]/page.tsx` — passes full category object, uses localized breadcrumbs/header
+  - `examples/[category]/page.tsx` — localized category name and description
+  - `examples/page.tsx` — passes `_no` fields to search component
+  - `collection/page.tsx` — localized bookmarked example titles and descriptions
+- TypeScript compiles with zero errors
+- Full production build passes (message validation + content validation + next build)
+
+### Files created
+- `src/i18n/validate-messages.ts` — Build-time EN/NO message key parity validator
+- `src/content/localized.ts` — Locale-aware content accessor utility (12 helpers)
+
+### Files modified
+- `package.json` — Added `validate-messages` script, updated `build` to include it
+- `src/content/types.ts` — Added optional `_no` fields to PromptStep (8), Example (2), Category (2)
+- `src/content/schemas.ts` — Added optional Zod schemas for all Norwegian fields
+- `src/content/categories.ts` — Added `name_no` and `description_no` to all 3 categories
+- `src/content/examples/content-marketing/product-launch-social-post.ts` — Norwegian content (4 steps)
+- `src/content/examples/content-marketing/newsletter-welcome-sequence.ts` — Norwegian content (4 steps)
+- `src/content/examples/business-docs/executive-summary.ts` — Norwegian content (4 steps)
+- `src/content/examples/business-docs/client-proposal.ts` — Norwegian content (4 steps)
+- `src/content/examples/internal-comms/project-status-update.ts` — Norwegian content (4 steps)
+- `src/content/examples/internal-comms/meeting-summary.ts` — Norwegian content (4 steps)
+- `src/components/prompt-step-view.tsx` — Uses localized helpers for all content fields
+- `src/components/example-card.tsx` — Uses localized title/description
+- `src/components/category-card.tsx` — Uses localized name/description
+- `src/components/output-preview.tsx` — Added break-words class
+- `src/components/example-search.tsx` — Extended interfaces with `_no` fields, locale-aware rendering
+- `src/app/examples/[category]/[slug]/page.tsx` — Passes category object, uses localized content
+- `src/app/examples/[category]/page.tsx` — Uses localized category name/description
+- `src/app/examples/page.tsx` — Passes `_no` fields to search component
+- `src/app/collection/page.tsx` — Uses localized title/description
+
+### Architecture notes
+- Option A pattern (inline `_no` fields) keeps English and Norwegian content co-located in each file, avoiding file duplication
+- The `localized.ts` utility centralizes all locale-resolution logic — components call helpers instead of doing inline ternaries
+- All helpers follow the same pattern: `locale === "no" && field_no ? field_no : field` with fallback to English
+- The message key parity validator runs recursively so it catches nested key mismatches, not just top-level
+- Build pipeline order: validate messages -> validate content -> next build
+
+### Success criteria met
+1. `en.json` and `no.json` have identical key sets (96 keys each), validated at build time
+2. All 6 examples and 3 categories have complete Norwegian translations
+3. All UI components render Norwegian content when the locale cookie is set to "no"
+4. Build passes with all validations (message parity, content schemas, TypeScript, Next.js)
+
+### Next steps
+- Phase 9: Enhanced feedback with structured JSON output
+- Phase 11+ as defined in roadmap
+
+---
+
+## Phase 9: AI Feedback & Scoring Rubric
+**Status:** COMPLETE
+**Date:** 2026-02-14
+
+### What was done
+- Created a shared rubric definition module (`src/lib/ai/rubric.ts`) defining 5 scoring dimensions:
+  1. **Clarity** — Is the intent clear and unambiguous?
+  2. **Specificity** — Does it include enough detail (audience, tone, format, length)?
+  3. **Context** — Does it provide necessary background information?
+  4. **Structure** — Is it well-organized and easy to follow?
+  5. **Constraints** — Does it set appropriate boundaries and output requirements?
+- Each dimension has: name, description, and a 1-5 scoring guide with clear explanations per level
+- The rubric module exports both the dimension definitions (for UI) and a system prompt builder function (for the API)
+- Updated the feedback API route (`/api/ai/feedback`) to use `generateObject()` from the Vercel AI SDK:
+  - Uses a Zod schema to enforce structured JSON output with scores, explanations, summary, and improved prompt
+  - Returns complete JSON (not streaming) since structured output must be complete
+  - The system prompt is generated from the rubric definition, ensuring UI and API are always in sync
+- Created `RubricDisplay` component (`src/components/rubric-display.tsx`):
+  - Overall score prominently displayed with color-coded styling (green/amber/red based on score)
+  - Score label (Excellent/Good/Adequate/Needs Work/Poor) alongside the overall score
+  - Summary assessment in a highlighted panel
+  - Individual dimension scores with animated progress bars and color coding
+  - Per-dimension explanations from the AI
+  - Collapsible "View Improved Prompt" section with copy-to-clipboard functionality
+- Created `RubricInfo` component (`src/components/rubric-info.tsx`):
+  - Collapsible panel shown BEFORE submission so users know what to aim for
+  - "What makes a good prompt?" educational framing with lightbulb icon
+  - Lists all 5 dimensions with their descriptions
+  - Intro and footer text providing guidance on target scores
+- Updated the `Sandbox` component to integrate both rubric components:
+  - `RubricInfo` panel displayed above the prompt textarea
+  - Separate request handlers for chat (streaming) and feedback (JSON)
+  - Feedback uses 60-second timeout (longer than chat's 30s since structured output takes more time)
+  - "Analyzing your prompt..." loading state during feedback requests
+  - When feedback is received, renders `RubricDisplay` instead of raw text
+  - Clear button resets rubric feedback state
+- Added 16 new translation keys across both `en.json` and `no.json`:
+  - `sandbox.analyzingPrompt` for the feedback loading state
+  - `rubric.*` section with 15 keys for rubric UI strings
+- Message key parity validated: 113 keys each language
+- TypeScript compiles with zero errors
+- Full production build passes (message validation + content validation + Next.js build)
+
+### Files created
+- `src/lib/ai/rubric.ts` — Rubric dimension definitions, TypeScript types, system prompt builder
+- `src/components/rubric-display.tsx` — "use client" visual scoring results component
+- `src/components/rubric-info.tsx` — "use client" pre-submission rubric info panel
+
+### Files modified
+- `src/app/api/ai/feedback/route.ts` — Replaced `streamText` with `generateObject` using Zod schema
+- `src/components/sandbox.tsx` — Integrated RubricInfo, RubricDisplay; split chat/feedback request handlers
+- `messages/en.json` — Added `sandbox.analyzingPrompt` and `rubric.*` section (16 new keys)
+- `messages/no.json` — Added `sandbox.analyzingPrompt` and `rubric.*` section (16 new keys)
+- `progress.md` — Updated with Phase 9 status
+
+### Architecture notes
+- The rubric definition is a single source of truth: `RUBRIC_DIMENSIONS` array is used both in the UI (`RubricInfo` component) and in the API (system prompt via `buildRubricSystemPromptSection()`)
+- The feedback API now uses `generateObject()` instead of `streamText()`, returning validated JSON that conforms to a Zod schema
+- Chat endpoint remains unchanged (still uses `streamText` for progressive display)
+- The sandbox now handles two different response formats: streaming text for chat, JSON for feedback
+- Feedback timeout is 60s (vs 30s for chat) because structured output via `generateObject` takes longer
+- Score visualization uses color-coded progress bars and dynamic Tailwind classes based on score thresholds
+- The improved prompt section is collapsible to avoid overwhelming users and includes copy-to-clipboard
+
+### Success criteria met
+1. AI feedback evaluates prompts against a defined rubric (Clarity, Specificity, Context, Structure, Constraints) and returns a score per dimension (1-5)
+2. Each rubric dimension displays its score alongside an explanation (e.g., "Specificity: 3/5 — Your prompt did not specify the audience")
+3. The scoring rubric criteria are visible to the user before they submit, so they know what to aim for (via the collapsible RubricInfo panel)
+
+### Next steps
+- Phase 11+ as defined in roadmap

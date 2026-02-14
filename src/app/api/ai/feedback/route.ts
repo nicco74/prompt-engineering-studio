@@ -1,32 +1,41 @@
 import { verifyAuth } from "@/lib/auth";
 import { getModel } from "@/lib/ai/registry";
 import { checkRateLimit } from "@/lib/ai/rate-limit";
-import { streamText } from "ai";
+import { buildRubricSystemPromptSection } from "@/lib/ai/rubric";
+import { generateObject } from "ai";
+import { z } from "zod";
 import { NextRequest, NextResponse } from "next/server";
 
 /**
- * System prompt for evaluating user-submitted prompts.
- *
- * This rubric focuses on the core prompt-engineering principles taught
- * throughout the application: clarity, specificity, context, constraints,
- * and iterative refinement.
+ * Zod schema for the structured feedback response.
+ * Used with generateObject to get typed, validated output from the AI.
  */
-const FEEDBACK_SYSTEM_PROMPT = `You are an expert prompt-engineering coach. The user will give you a prompt they have written for an AI assistant. Your job is to evaluate it and provide constructive feedback.
-
-Evaluate the prompt against these criteria:
-1. **Clarity** — Is the intent clear and unambiguous?
-2. **Specificity** — Does it include enough detail (audience, tone, format, length)?
-3. **Context** — Does it provide necessary background information?
-4. **Constraints** — Does it set appropriate boundaries and output requirements?
-5. **Structure** — Is it well-organized and easy to follow?
-
-Respond with:
-- A brief overall assessment (1-2 sentences)
-- A rating for each criterion: Strong, Adequate, or Needs Improvement
-- 2-3 specific, actionable suggestions for improvement
-- An improved version of the prompt that incorporates your suggestions
-
-Keep your feedback encouraging and educational. Use plain language. Format your response in Markdown.`;
+const feedbackSchema = z.object({
+  overallScore: z
+    .number()
+    .int()
+    .min(1)
+    .max(5)
+    .describe("Overall score from 1-5, averaged from dimension scores and rounded to the nearest integer."),
+  dimensions: z
+    .array(
+      z.object({
+        name: z.string().describe("The name of the scoring dimension (e.g. Clarity, Specificity)."),
+        score: z.number().int().min(1).max(5).describe("Score from 1 to 5 for this dimension."),
+        explanation: z
+          .string()
+          .describe("A 1-2 sentence explanation justifying the score, referencing specific aspects of the prompt."),
+      })
+    )
+    .length(5)
+    .describe("Scores for each of the 5 rubric dimensions: Clarity, Specificity, Context, Structure, Constraints."),
+  summary: z
+    .string()
+    .describe("A 2-3 sentence overall assessment highlighting the biggest strength and most impactful improvement area."),
+  improvedPrompt: z
+    .string()
+    .describe("An improved version of the prompt that addresses the identified weaknesses and scores at least 4/5 on every dimension."),
+});
 
 export async function POST(request: NextRequest) {
   // 1. Authenticate
@@ -80,23 +89,26 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  // 4. Stream AI feedback
+  // 4. Generate structured AI feedback using the scoring rubric
   try {
-    const result = streamText({
+    const result = await generateObject({
       model: getModel(),
-      system: FEEDBACK_SYSTEM_PROMPT,
-      prompt: `Please evaluate the following prompt and provide feedback:\n\n---\n${prompt.trim()}\n---`,
+      schema: feedbackSchema,
+      schemaName: "PromptFeedback",
+      schemaDescription: "Structured feedback for a user-submitted AI prompt, scored against a 5-dimension rubric.",
+      system: buildRubricSystemPromptSection(),
+      prompt: `Please evaluate the following prompt and provide structured feedback with scores:\n\n---\n${prompt.trim()}\n---`,
     });
 
-    const response = result.toTextStreamResponse();
-
-    // Append rate limit headers
-    response.headers.set("X-RateLimit-Remaining", String(rateLimit.remaining));
-    response.headers.set("X-RateLimit-Reset", String(rateLimit.resetAt));
-
-    return response;
+    // Return the structured feedback as JSON
+    return NextResponse.json(result.object, {
+      headers: {
+        "X-RateLimit-Remaining": String(rateLimit.remaining),
+        "X-RateLimit-Reset": String(rateLimit.resetAt),
+      },
+    });
   } catch (error) {
-    console.error("[ai/feedback] Stream error:", error);
+    console.error("[ai/feedback] Generation error:", error);
     return NextResponse.json(
       { error: "Internal server error", message: "Failed to generate AI feedback." },
       { status: 500 }
