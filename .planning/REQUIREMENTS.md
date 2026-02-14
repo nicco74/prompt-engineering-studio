@@ -77,9 +77,38 @@
 
 ## Traceability
 
-| REQ-ID | Phase | Status |
-|--------|-------|--------|
-| (populated after roadmap creation) | | |
+| REQ-ID | Requirement | Phase | Status |
+|--------|-------------|-------|--------|
+| CONT-01 | Browse curated prompt refinement examples by category | 4 | pending |
+| CONT-02 | Step-by-step prompt evolution with analysis | 4 | pending |
+| CONT-03 | Pros, cons, feedback, and tips per version | 4 | pending |
+| CONT-04 | Simulated AI output preview per version | 4 | pending |
+| CONT-05 | Difficulty levels and learning path | 3 | pending |
+| CONT-06 | Previous/next navigation between versions | 4 | pending |
+| CONT-07 | Refinement-focused pedagogy | 3 | pending |
+| PRAC-01 | Practice sandbox with live AI streaming | 8 | pending |
+| PRAC-02 | AI feedback with improvement suggestions | 8 | pending |
+| PRAC-03 | Visible scoring rubric | 9 | pending |
+| PRAC-04 | Scoring criteria with explanations | 9 | pending |
+| PRAC-05 | Rate limiting and cost controls | 7 | pending |
+| PRAC-06 | Provider-agnostic AI via Vercel AI SDK | 7 | pending |
+| PERS-01 | Bookmark favorite examples | 6 | pending |
+| PERS-02 | Personal notes on examples | 6 | pending |
+| PERS-03 | Personal collection view | 6 | pending |
+| SRCH-01 | Search examples by keyword | 5 | pending |
+| SRCH-02 | Filter by category and difficulty | 5 | pending |
+| SRCH-03 | Copy prompt to clipboard | 5 | pending |
+| I18N-01 | English and Norwegian UI text | 10 | pending |
+| I18N-02 | Language switcher with persisted choice | 1 | pending |
+| I18N-03 | Bilingual curated content (natively authored) | 10 | pending |
+| I18N-04 | i18n architecture supports new languages without code changes | 1 | pending |
+| AUTH-01 | Shared password protection | 2 | pending |
+| AUTH-02 | 7-day session cookie | 2 | pending |
+| AUTH-03 | Server-side AI API calls (keys never exposed) | 2, 7 | pending |
+| INFR-01 | Responsive design (desktop, tablet, mobile) | 11 | pending |
+| INFR-02 | Deployed to Vercel | 12 | pending |
+| INFR-03 | Content as typed TypeScript files | 3 | pending |
+| INFR-04 | User state in localStorage with namespaced keys | 6 | pending |
 
 ---
-*Last updated: 2026-02-14 after requirements definition*
+*Last updated: 2026-02-14 after roadmap creation*
