@@ -264,3 +264,54 @@
 
 ### Next steps
 - Phase 7 or continuing with remaining phases
+
+---
+
+## Phase 8: Practice Sandbox UI & Streaming
+**Status:** COMPLETE
+**Date:** 2026-02-14
+
+### What was done
+- Created the `/sandbox` page as a Server Component wrapper rendering the client `Sandbox` component
+- Created the `Sandbox` "use client" component with full streaming AI integration:
+  - Textarea for writing prompts with placeholder text from translations
+  - "Send Prompt" button that POSTs to `/api/ai/chat` and streams the response
+  - "Get Feedback" button that POSTs to `/api/ai/feedback` and streams structured feedback
+  - Manual `fetch` with `ReadableStream` reader for progressive text display
+  - 30-second `AbortController` timeout that aborts hung requests
+  - Request counter showing remaining requests (read from `X-RateLimit-Remaining` header)
+  - Loading states with `Loader2` spinning icon during streaming
+  - Streaming indicator in the output header ("AI is responding...")
+  - Error handling for 401 (unauthorized), 429 (rate limit with retry-after), 500 (server error), timeout, and missing API key
+  - Clear/reset button to start a new prompt (cancels in-flight requests)
+- Uses Lucide icons: `Send`, `MessageSquare`, `AlertCircle`, `Loader2`, `RotateCcw`, `Sparkles`
+- Styled consistently with existing design: zinc colors, rounded-lg borders, clean spacing
+- Added 4 new translation keys to both `en.json` and `no.json`: `clear`, `streaming`, `timeoutError`, `noApiKey`, `retryAfter`
+- Message key parity validation passes (96 keys each language)
+- Full production build passes with zero errors
+
+### Files created
+- `src/app/sandbox/page.tsx` — Server Component page wrapper
+- `src/components/sandbox.tsx` — "use client" sandbox with streaming AI integration
+
+### Files modified
+- `messages/en.json` — Added sandbox streaming/error translation keys
+- `messages/no.json` — Added sandbox streaming/error translation keys
+- `progress.md` — Updated with Phase 8 status
+
+### Architecture notes
+- The sandbox page is a Server Component that renders the client `Sandbox` component (proper Next.js pattern)
+- Streaming uses manual `fetch` + `ReadableStream` reader rather than the Vercel AI SDK `useChat` hook, because the API routes use `toTextStreamResponse()` (plain text streaming) rather than the AI SDK's protocol format
+- Each request creates a fresh `AbortController` with a 30-second timeout; previous in-flight requests are cancelled when a new one starts
+- Rate limit remaining count is extracted from the `X-RateLimit-Remaining` response header and displayed persistently
+- Error states are reset on each new request; the clear button resets all state including cancelling streams
+- The output area conditionally shows "AI Response" or "Prompt Feedback" header based on which button was pressed
+
+### Success criteria met
+1. User can type a prompt in the sandbox editor and submit it to receive a streamed AI response displayed progressively
+2. User can request AI feedback that evaluates their prompt quality with specific improvement suggestions
+3. Streaming errors display a user-friendly message via error handling; a 30-second timeout aborts hung requests
+4. A visible request counter shows the user how many AI requests they have remaining in the current period
+
+### Next steps
+- Phase 9: Enhanced feedback with structured JSON output

@@ -76,9 +76,14 @@
     "promptFeedback": "Prompt-tilbakemelding",
     "requestsRemaining": "foresporsler igjen",
     "rateLimitExceeded": "Du har nadd grensen for antall foresporsler. Vennligst prov igjen senere.",
+    "retryAfter": "Prov igjen om {seconds} sekunder.",
     "unauthorized": "Vennligst logg inn for a bruke sandkassen.",
     "aiError": "Kunne ikke fa AI-svar. Vennligst prov igjen.",
-    "emptyPrompt": "Vennligst skriv inn en prompt for du sender."
+    "emptyPrompt": "Vennligst skriv inn en prompt for du sender.",
+    "clear": "Nullstill",
+    "streaming": "AI svarer...",
+    "timeoutError": "Foresporselen ble tidsavbrutt. Vennligst prov igjen.",
+    "noApiKey": "AI-tjenesten er ikke konfigurert. Vennligst kontakt administrator."
   },
   "collection": {
     "title": "Min samling",

@@ -76,9 +76,14 @@
     "promptFeedback": "Prompt Feedback",
     "requestsRemaining": "requests remaining",
     "rateLimitExceeded": "You have reached the request limit. Please try again later.",
+    "retryAfter": "Try again in {seconds} seconds.",
     "unauthorized": "Please sign in to use the sandbox.",
     "aiError": "Failed to get AI response. Please try again.",
-    "emptyPrompt": "Please enter a prompt before submitting."
+    "emptyPrompt": "Please enter a prompt before submitting.",
+    "clear": "Clear",
+    "streaming": "AI is responding...",
+    "timeoutError": "The request timed out. Please try again.",
+    "noApiKey": "The AI service is not configured. Please contact the administrator."
   },
   "collection": {
     "title": "My Collection",
