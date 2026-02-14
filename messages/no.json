@@ -14,7 +14,13 @@
     "search": "Sok...",
     "noResults": "Ingen resultater funnet",
     "copyPrompt": "Kopier prompt",
-    "copied": "Kopiert!"
+    "copied": "Kopiert!",
+    "notFound": "Ikke funnet",
+    "notFoundMessage": "Siden du leter etter finnes ikke.",
+    "examplesCount": "{count} eksempler",
+    "stepsCount": "{count} steg",
+    "versionOf": "Versjon {current} av {total}",
+    "prompt": "Prompt"
   },
   "nav": {
     "home": "Hjem",
@@ -32,6 +38,7 @@
   "examples": {
     "title": "Prompt-eksempler",
     "subtitle": "Studer virkelige eksempler pa prompt-forbedring pa tvers av ulike arbeidsscenarier",
+    "categorySubtitle": "Utforsk eksempler pa prompt-forbedring i denne kategorien",
     "version": "Versjon",
     "changes": "Endringer",
     "pros": "Fordeler",
@@ -43,7 +50,9 @@
     "regenerate": "Regenerer forhandsvisning",
     "beginner": "Nybegynner",
     "intermediate": "Middels",
-    "advanced": "Avansert"
+    "advanced": "Avansert",
+    "categoryNotFound": "Kategori ikke funnet",
+    "exampleNotFound": "Eksempel ikke funnet"
   },
   "categories": {
     "contentMarketing": "Innhold og markedsforing",

@@ -14,7 +14,13 @@
     "search": "Search...",
     "noResults": "No results found",
     "copyPrompt": "Copy Prompt",
-    "copied": "Copied!"
+    "copied": "Copied!",
+    "notFound": "Not Found",
+    "notFoundMessage": "The page you are looking for does not exist.",
+    "examplesCount": "{count} examples",
+    "stepsCount": "{count} steps",
+    "versionOf": "Version {current} of {total}",
+    "prompt": "Prompt"
   },
   "nav": {
     "home": "Home",
@@ -32,6 +38,7 @@
   "examples": {
     "title": "Prompt Examples",
     "subtitle": "Study real-world examples of prompt refinement across different work scenarios",
+    "categorySubtitle": "Browse prompt refinement examples in this category",
     "version": "Version",
     "changes": "Changes",
     "pros": "Pros",
@@ -43,7 +50,9 @@
     "regenerate": "Regenerate Preview",
     "beginner": "Beginner",
     "intermediate": "Intermediate",
-    "advanced": "Advanced"
+    "advanced": "Advanced",
+    "categoryNotFound": "Category not found",
+    "exampleNotFound": "Example not found"
   },
   "categories": {
     "contentMarketing": "Content & Marketing",
