@@ -55,9 +55,9 @@ export function RubricDisplay({ feedback }: RubricDisplayProps) {
   return (
     <div className="space-y-5">
       {/* Overall score */}
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-3 sm:gap-4">
         <div
-          className={`flex h-16 w-16 shrink-0 items-center justify-center rounded-xl border-2 ${
+          className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border-2 sm:h-16 sm:w-16 ${
             feedback.overallScore >= 4
               ? "border-green-200 bg-green-50 dark:border-green-800 dark:bg-green-900/20"
               : feedback.overallScore >= 3
@@ -65,9 +65,9 @@ export function RubricDisplay({ feedback }: RubricDisplayProps) {
                 : "border-red-200 bg-red-50 dark:border-red-800 dark:bg-red-900/20"
           }`}
         >
-          <span className={`text-2xl font-bold ${scoreColor(feedback.overallScore)}`}>
+          <span className={`text-xl font-bold sm:text-2xl ${scoreColor(feedback.overallScore)}`}>
             {feedback.overallScore}
-            <span className="text-sm font-normal text-zinc-400">/5</span>
+            <span className="text-xs font-normal text-zinc-400 sm:text-sm">/5</span>
           </span>
         </div>
         <div>
@@ -79,7 +79,7 @@ export function RubricDisplay({ feedback }: RubricDisplayProps) {
       </div>
 
       {/* Summary */}
-      <div className="rounded-lg border border-zinc-100 bg-zinc-50 px-4 py-3 dark:border-zinc-800 dark:bg-zinc-800/50">
+      <div className="rounded-lg border border-zinc-100 bg-zinc-50 px-3 py-3 sm:px-4 dark:border-zinc-800 dark:bg-zinc-800/50">
         <p className="text-sm leading-relaxed text-zinc-700 dark:text-zinc-300">
           {feedback.summary}
         </p>
@@ -88,14 +88,14 @@ export function RubricDisplay({ feedback }: RubricDisplayProps) {
       {/* Dimension scores */}
       <div className="space-y-3">
         <h3 className="flex items-center gap-2 text-sm font-semibold text-zinc-700 dark:text-zinc-300">
-          <TrendingUp size={14} />
+          <TrendingUp size={14} aria-hidden="true" />
           {t("dimensionScores")}
         </h3>
         <div className="space-y-2">
           {feedback.dimensions.map((dim) => (
             <div
               key={dim.name}
-              className="rounded-lg border border-zinc-100 px-4 py-3 dark:border-zinc-800"
+              className="rounded-lg border border-zinc-100 px-3 py-3 sm:px-4 dark:border-zinc-800"
             >
               {/* Score header row */}
               <div className="mb-2 flex items-center justify-between">
@@ -112,6 +112,10 @@ export function RubricDisplay({ feedback }: RubricDisplayProps) {
                 <div
                   className={`h-full rounded-full transition-all duration-500 ${scoreBgColor(dim.score)}`}
                   style={{ width: `${(dim.score / 5) * 100}%` }}
+                  role="progressbar"
+                  aria-valuenow={dim.score}
+                  aria-valuemin={1}
+                  aria-valuemax={5}
                 />
               </div>
 
@@ -128,7 +132,8 @@ export function RubricDisplay({ feedback }: RubricDisplayProps) {
       <div>
         <button
           onClick={() => setShowImproved(!showImproved)}
-          className="flex w-full items-center justify-between rounded-lg border border-zinc-200 bg-zinc-50 px-4 py-3 text-sm font-semibold text-zinc-700 transition-colors hover:bg-zinc-100 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700"
+          className="flex w-full items-center justify-between rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-3 text-sm font-semibold text-zinc-700 transition-colors hover:bg-zinc-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 focus-visible:ring-offset-2 sm:px-4 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700 dark:focus-visible:ring-zinc-500 dark:focus-visible:ring-offset-zinc-900"
+          aria-expanded={showImproved}
         >
           <span>{t("improvedPrompt")}</span>
           {showImproved ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
@@ -136,28 +141,29 @@ export function RubricDisplay({ feedback }: RubricDisplayProps) {
 
         {showImproved && (
           <div className="mt-2 rounded-lg border border-emerald-200 bg-emerald-50 dark:border-emerald-800 dark:bg-emerald-900/20">
-            <div className="flex items-center justify-between border-b border-emerald-100 px-4 py-2 dark:border-emerald-800">
+            <div className="flex items-center justify-between border-b border-emerald-100 px-3 py-2 sm:px-4 dark:border-emerald-800">
               <span className="text-xs font-medium text-emerald-700 dark:text-emerald-400">
                 {t("improvedVersion")}
               </span>
               <button
                 onClick={handleCopy}
-                className="inline-flex items-center gap-1 rounded px-2 py-1 text-xs text-emerald-600 transition-colors hover:bg-emerald-100 dark:text-emerald-400 dark:hover:bg-emerald-800"
+                className="inline-flex items-center gap-1 rounded px-2 py-1 text-xs text-emerald-600 transition-colors hover:bg-emerald-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 dark:text-emerald-400 dark:hover:bg-emerald-800 dark:focus-visible:ring-emerald-500"
+                aria-label={t("copy")}
               >
                 {copied ? (
                   <>
-                    <Check size={12} />
+                    <Check size={12} aria-hidden="true" />
                     {t("copied")}
                   </>
                 ) : (
                   <>
-                    <Copy size={12} />
+                    <Copy size={12} aria-hidden="true" />
                     {t("copy")}
                   </>
                 )}
               </button>
             </div>
-            <div className="px-4 py-3">
+            <div className="px-3 py-3 sm:px-4">
               <p className="whitespace-pre-wrap text-sm leading-relaxed text-emerald-900 dark:text-emerald-200">
                 {feedback.improvedPrompt}
               </p>

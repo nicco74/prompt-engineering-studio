@@ -18,9 +18,10 @@ export function RubricInfo() {
     <div className="rounded-lg border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex w-full items-center gap-2 px-4 py-3 text-left transition-colors hover:bg-zinc-50 dark:hover:bg-zinc-800/50"
+        className="flex w-full items-center gap-2 rounded-lg px-3 py-3 text-left transition-colors hover:bg-zinc-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 focus-visible:ring-offset-2 sm:px-4 dark:hover:bg-zinc-800/50 dark:focus-visible:ring-zinc-500 dark:focus-visible:ring-offset-zinc-900"
+        aria-expanded={isOpen}
       >
-        <Lightbulb size={16} className="shrink-0 text-amber-500" />
+        <Lightbulb size={16} className="shrink-0 text-amber-500" aria-hidden="true" />
         <span className="flex-1 text-sm font-semibold text-zinc-700 dark:text-zinc-300">
           {t("whatMakesGoodPrompt")}
         </span>
@@ -32,7 +33,7 @@ export function RubricInfo() {
       </button>
 
       {isOpen && (
-        <div className="border-t border-zinc-100 px-4 py-4 dark:border-zinc-800">
+        <div className="border-t border-zinc-100 px-3 py-4 sm:px-4 dark:border-zinc-800">
           <p className="mb-4 text-xs leading-relaxed text-zinc-500 dark:text-zinc-400">
             {t("rubricIntro")}
           </p>

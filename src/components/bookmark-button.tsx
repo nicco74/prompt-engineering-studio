@@ -17,7 +17,7 @@ export function BookmarkButton({ slug }: BookmarkButtonProps) {
     <button
       type="button"
       onClick={() => toggleBookmark(slug)}
-      className={`inline-flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-sm font-medium transition-colors ${
+      className={`inline-flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 focus-visible:ring-offset-2 dark:focus-visible:ring-zinc-500 dark:focus-visible:ring-offset-zinc-900 ${
         bookmarked
           ? "border-amber-300 bg-amber-50 text-amber-700 hover:bg-amber-100 dark:border-amber-700 dark:bg-amber-900/20 dark:text-amber-400 dark:hover:bg-amber-900/30"
           : "border-zinc-200 bg-white text-zinc-600 hover:border-zinc-300 hover:text-zinc-900 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-400 dark:hover:border-zinc-600 dark:hover:text-zinc-200"
@@ -26,11 +26,13 @@ export function BookmarkButton({ slug }: BookmarkButtonProps) {
       aria-pressed={bookmarked}
     >
       {bookmarked ? (
-        <BookmarkCheck size={16} className="fill-current" />
+        <BookmarkCheck size={16} className="fill-current" aria-hidden="true" />
       ) : (
-        <Bookmark size={16} />
+        <Bookmark size={16} aria-hidden="true" />
       )}
-      {bookmarked ? t("bookmarked") : t("bookmark")}
+      <span className="hidden sm:inline">
+        {bookmarked ? t("bookmarked") : t("bookmark")}
+      </span>
     </button>
   );
 }

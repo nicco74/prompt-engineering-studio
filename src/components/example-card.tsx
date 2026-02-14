@@ -16,11 +16,11 @@ export function ExampleCard({ example }: ExampleCardProps) {
   return (
     <Link
       href={`/examples/${example.category}/${example.slug}`}
-      className="group flex flex-col rounded-lg border border-zinc-200 bg-white p-5 transition-all hover:border-zinc-300 hover:shadow-md dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-zinc-700"
+      className="group flex flex-col rounded-lg border border-zinc-200 bg-white p-4 transition-all hover:border-zinc-300 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 focus-visible:ring-offset-2 sm:p-5 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-zinc-700 dark:focus-visible:ring-zinc-500 dark:focus-visible:ring-offset-zinc-950"
     >
       <div className="mb-3 flex items-center justify-between">
         <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-zinc-100 text-zinc-600 transition-colors group-hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-400 dark:group-hover:bg-zinc-700">
-          <FileText size={18} />
+          <FileText size={18} aria-hidden="true" />
         </div>
         <DifficultyBadge difficulty={example.difficulty} />
       </div>

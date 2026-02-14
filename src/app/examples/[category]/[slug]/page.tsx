@@ -81,7 +81,7 @@ function ExampleDetailContent({
   const basePath = `/examples/${categoryId}/${example.slug}`;
 
   return (
-    <div className="mx-auto max-w-6xl px-6 py-10">
+    <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10">
       <Breadcrumbs
         items={[
           { label: tNav("home"), href: "/" },
@@ -91,13 +91,13 @@ function ExampleDetailContent({
         ]}
       />
 
-      {/* Example header */}
-      <div className="mt-6 flex items-start justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">
+      {/* Example header -- stacks on mobile, side-by-side on wider screens */}
+      <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
+        <div className="min-w-0 flex-1">
+          <h1 className="text-xl font-bold tracking-tight text-zinc-900 sm:text-2xl dark:text-zinc-50">
             {localizedTitle}
           </h1>
-          <p className="mt-1 text-zinc-600 dark:text-zinc-400">
+          <p className="mt-1 text-sm text-zinc-600 sm:text-base dark:text-zinc-400">
             {localizedDescription}
           </p>
         </div>
@@ -116,7 +116,7 @@ function ExampleDetailContent({
         />
       </div>
 
-      {/* Two-column layout: step detail + output */}
+      {/* Two-column layout: step detail + output. Stacks on mobile. */}
       <div className="mt-6 grid gap-6 lg:grid-cols-2">
         {/* Left: prompt info */}
         <div>

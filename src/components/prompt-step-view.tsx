@@ -38,10 +38,10 @@ export function PromptStepView({ step, totalSteps }: PromptStepViewProps) {
   const localizedTips = getTips(step, locale);
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-4 sm:space-y-5">
       {/* Version header */}
       <div className="flex items-center gap-3">
-        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-zinc-900 text-sm font-bold text-white dark:bg-zinc-100 dark:text-zinc-900">
+        <span className="flex h-7 w-7 items-center justify-center rounded-full bg-zinc-900 text-xs font-bold text-white sm:h-8 sm:w-8 sm:text-sm dark:bg-zinc-100 dark:text-zinc-900">
           {step.version}
         </span>
         <span className="text-sm font-medium text-zinc-500 dark:text-zinc-400">
@@ -53,9 +53,9 @@ export function PromptStepView({ step, totalSteps }: PromptStepViewProps) {
       </div>
 
       {/* Changes */}
-      <div className="rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
+      <div className="rounded-lg border border-zinc-200 bg-white p-3 sm:p-4 dark:border-zinc-800 dark:bg-zinc-900">
         <div className="mb-2 flex items-center gap-2 text-sm font-medium text-zinc-700 dark:text-zinc-300">
-          <RefreshCw size={15} />
+          <RefreshCw size={15} aria-hidden="true" />
           {t("changes")}
         </div>
         <p className="text-sm text-zinc-600 dark:text-zinc-400">
@@ -64,23 +64,23 @@ export function PromptStepView({ step, totalSteps }: PromptStepViewProps) {
       </div>
 
       {/* Prompt text */}
-      <div className="rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
+      <div className="rounded-lg border border-zinc-200 bg-white p-3 sm:p-4 dark:border-zinc-800 dark:bg-zinc-900">
         <div className="mb-2 flex items-center justify-between">
           <span className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
             {tCommon("prompt")}
           </span>
           <CopyButton text={localizedPrompt} />
         </div>
-        <div className="whitespace-pre-wrap rounded-md bg-zinc-50 p-4 font-mono text-sm leading-relaxed text-zinc-800 dark:bg-zinc-950 dark:text-zinc-200">
+        <div className="overflow-x-auto whitespace-pre-wrap rounded-md bg-zinc-50 p-3 font-mono text-sm leading-relaxed text-zinc-800 sm:p-4 dark:bg-zinc-950 dark:text-zinc-200">
           {localizedPrompt}
         </div>
       </div>
 
-      {/* Pros & Cons side by side */}
+      {/* Pros & Cons side by side -- stacks on mobile */}
       <div className="grid gap-4 sm:grid-cols-2">
-        <div className="rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
+        <div className="rounded-lg border border-zinc-200 bg-white p-3 sm:p-4 dark:border-zinc-800 dark:bg-zinc-900">
           <div className="mb-2 flex items-center gap-2 text-sm font-medium text-emerald-700 dark:text-emerald-400">
-            <ThumbsUp size={15} />
+            <ThumbsUp size={15} aria-hidden="true" />
             {t("pros")}
           </div>
           <ul className="space-y-1.5">
@@ -89,16 +89,16 @@ export function PromptStepView({ step, totalSteps }: PromptStepViewProps) {
                 key={i}
                 className="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400"
               >
-                <span className="mt-1 block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-emerald-500" />
+                <span className="mt-1 block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-emerald-500" aria-hidden="true" />
                 {pro}
               </li>
             ))}
           </ul>
         </div>
 
-        <div className="rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
+        <div className="rounded-lg border border-zinc-200 bg-white p-3 sm:p-4 dark:border-zinc-800 dark:bg-zinc-900">
           <div className="mb-2 flex items-center gap-2 text-sm font-medium text-rose-700 dark:text-rose-400">
-            <ThumbsDown size={15} />
+            <ThumbsDown size={15} aria-hidden="true" />
             {t("cons")}
           </div>
           <ul className="space-y-1.5">
@@ -107,7 +107,7 @@ export function PromptStepView({ step, totalSteps }: PromptStepViewProps) {
                 key={i}
                 className="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400"
               >
-                <span className="mt-1 block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-rose-500" />
+                <span className="mt-1 block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-rose-500" aria-hidden="true" />
                 {con}
               </li>
             ))}
@@ -116,9 +116,9 @@ export function PromptStepView({ step, totalSteps }: PromptStepViewProps) {
       </div>
 
       {/* Feedback */}
-      <div className="rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
+      <div className="rounded-lg border border-zinc-200 bg-white p-3 sm:p-4 dark:border-zinc-800 dark:bg-zinc-900">
         <div className="mb-2 flex items-center gap-2 text-sm font-medium text-blue-700 dark:text-blue-400">
-          <MessageCircle size={15} />
+          <MessageCircle size={15} aria-hidden="true" />
           {t("feedback")}
         </div>
         <p className="text-sm text-zinc-600 dark:text-zinc-400">
@@ -127,18 +127,18 @@ export function PromptStepView({ step, totalSteps }: PromptStepViewProps) {
       </div>
 
       {/* Why this change */}
-      <div className="rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
+      <div className="rounded-lg border border-zinc-200 bg-white p-3 sm:p-4 dark:border-zinc-800 dark:bg-zinc-900">
         <div className="mb-2 flex items-center gap-2 text-sm font-medium text-purple-700 dark:text-purple-400">
-          <HelpCircle size={15} />
+          <HelpCircle size={15} aria-hidden="true" />
           {t("why")}
         </div>
         <p className="text-sm text-zinc-600 dark:text-zinc-400">{localizedWhy}</p>
       </div>
 
       {/* Tips */}
-      <div className="rounded-lg border border-amber-200 bg-amber-50 p-4 dark:border-amber-900/50 dark:bg-amber-950/30">
+      <div className="rounded-lg border border-amber-200 bg-amber-50 p-3 sm:p-4 dark:border-amber-900/50 dark:bg-amber-950/30">
         <div className="mb-2 flex items-center gap-2 text-sm font-medium text-amber-700 dark:text-amber-400">
-          <Lightbulb size={15} />
+          <Lightbulb size={15} aria-hidden="true" />
           {t("tips")}
         </div>
         <ul className="space-y-1.5">
@@ -147,7 +147,7 @@ export function PromptStepView({ step, totalSteps }: PromptStepViewProps) {
               key={i}
               className="flex items-start gap-2 text-sm text-amber-800 dark:text-amber-300"
             >
-              <span className="mt-1 block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-amber-500" />
+              <span className="mt-1 block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-amber-500" aria-hidden="true" />
               {tip}
             </li>
           ))}

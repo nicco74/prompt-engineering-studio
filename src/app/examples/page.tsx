@@ -36,7 +36,7 @@ export default function ExamplesPage() {
   }));
 
   return (
-    <div className="mx-auto max-w-6xl px-6 py-10">
+    <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10">
       <Breadcrumbs
         items={[
           { label: tNav("home"), href: "/" },
@@ -45,16 +45,16 @@ export default function ExamplesPage() {
       />
 
       <div className="mt-6">
-        <h1 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">
+        <h1 className="text-2xl font-bold tracking-tight text-zinc-900 sm:text-3xl dark:text-zinc-50">
           {t("title")}
         </h1>
-        <p className="mt-2 text-lg text-zinc-600 dark:text-zinc-400">
+        <p className="mt-2 text-base text-zinc-600 sm:text-lg dark:text-zinc-400">
           {t("subtitle")}
         </p>
       </div>
 
-      {/* Category cards — Server Component grid */}
-      <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {/* Category cards -- Server Component grid */}
+      <div className="mt-8 grid gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
         {categories.map((category) => {
           const examples = getExamplesByCategory(category.id);
           return (
@@ -68,9 +68,9 @@ export default function ExamplesPage() {
       </div>
 
       {/* Divider */}
-      <hr className="my-10 border-zinc-200 dark:border-zinc-800" />
+      <hr className="my-8 border-zinc-200 sm:my-10 dark:border-zinc-800" />
 
-      {/* Search and filter — Client Component */}
+      {/* Search and filter -- Client Component */}
       <ExampleSearch
         examples={searchableExamples}
         categories={searchableCategories}

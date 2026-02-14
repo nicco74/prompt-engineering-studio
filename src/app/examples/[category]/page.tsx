@@ -38,7 +38,7 @@ function CategoryPageContent({
   const localizedCategoryDescription = getCategoryDescription(category, locale);
 
   return (
-    <div className="mx-auto max-w-6xl px-6 py-10">
+    <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10">
       <Breadcrumbs
         items={[
           { label: tNav("home"), href: "/" },
@@ -48,15 +48,15 @@ function CategoryPageContent({
       />
 
       <div className="mt-6">
-        <h1 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">
+        <h1 className="text-2xl font-bold tracking-tight text-zinc-900 sm:text-3xl dark:text-zinc-50">
           {localizedCategoryName}
         </h1>
-        <p className="mt-2 text-lg text-zinc-600 dark:text-zinc-400">
+        <p className="mt-2 text-base text-zinc-600 sm:text-lg dark:text-zinc-400">
           {localizedCategoryDescription}
         </p>
       </div>
 
-      <div className="mt-8 grid gap-6 sm:grid-cols-2">
+      <div className="mt-8 grid gap-4 sm:grid-cols-2 sm:gap-6">
         {examples.map((example) => (
           <ExampleCard key={example.id} example={example} />
         ))}

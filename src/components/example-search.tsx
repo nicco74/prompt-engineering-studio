@@ -94,31 +94,33 @@ export function ExampleSearch({ examples, categories }: ExampleSearchProps) {
   return (
     <div>
       {/* Search and filter controls */}
-      <div className="space-y-4">
+      <div className="space-y-3 sm:space-y-4">
         {/* Search input */}
         <div className="relative">
           <Search
             size={18}
             className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400"
+            aria-hidden="true"
           />
           <input
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder={t("searchPlaceholder")}
-            className="w-full rounded-lg border border-zinc-200 bg-white py-2.5 pl-10 pr-4 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-zinc-400 focus:outline-none focus:ring-1 focus:ring-zinc-400 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 dark:placeholder:text-zinc-500 dark:focus:border-zinc-500 dark:focus:ring-zinc-500"
+            aria-label={t("searchPlaceholder")}
+            className="w-full rounded-lg border border-zinc-200 bg-white py-2.5 pl-10 pr-4 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-zinc-400 focus:outline-none focus:ring-1 focus:ring-zinc-400 focus-visible:ring-2 focus-visible:ring-zinc-400 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 dark:placeholder:text-zinc-500 dark:focus:border-zinc-500 dark:focus:ring-zinc-500"
           />
         </div>
 
-        {/* Filter dropdowns */}
-        <div className="flex flex-wrap gap-3">
+        {/* Filter dropdowns -- stack on very small screens */}
+        <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:gap-3">
           <div className="flex items-center gap-2">
-            <Filter size={16} className="text-zinc-400" />
+            <Filter size={16} className="shrink-0 text-zinc-400" aria-hidden="true" />
             <select
               value={categoryFilter}
               onChange={(e) => setCategoryFilter(e.target.value)}
               aria-label={t("filterByCategory")}
-              className="rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 focus:border-zinc-400 focus:outline-none focus:ring-1 focus:ring-zinc-400 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300 dark:focus:border-zinc-500 dark:focus:ring-zinc-500"
+              className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 focus:border-zinc-400 focus:outline-none focus:ring-1 focus:ring-zinc-400 focus-visible:ring-2 focus-visible:ring-zinc-400 sm:w-auto dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300 dark:focus:border-zinc-500 dark:focus:ring-zinc-500"
             >
               <option value="all">{t("allCategories")}</option>
               {categories.map((cat) => (
@@ -133,7 +135,7 @@ export function ExampleSearch({ examples, categories }: ExampleSearchProps) {
             value={difficultyFilter}
             onChange={(e) => setDifficultyFilter(e.target.value)}
             aria-label={t("filterByDifficulty")}
-            className="rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 focus:border-zinc-400 focus:outline-none focus:ring-1 focus:ring-zinc-400 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300 dark:focus:border-zinc-500 dark:focus:ring-zinc-500"
+            className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 focus:border-zinc-400 focus:outline-none focus:ring-1 focus:ring-zinc-400 focus-visible:ring-2 focus-visible:ring-zinc-400 sm:w-auto dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-300 dark:focus:border-zinc-500 dark:focus:ring-zinc-500"
           >
             <option value="all">{t("allDifficulties")}</option>
             <option value="beginner">{t("beginner")}</option>
@@ -155,11 +157,11 @@ export function ExampleSearch({ examples, categories }: ExampleSearchProps) {
             <Link
               key={example.id}
               href={`/examples/${example.category}/${example.slug}`}
-              className="group flex flex-col rounded-lg border border-zinc-200 bg-white p-5 transition-all hover:border-zinc-300 hover:shadow-md dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-zinc-700"
+              className="group flex flex-col rounded-lg border border-zinc-200 bg-white p-4 transition-all hover:border-zinc-300 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 focus-visible:ring-offset-2 sm:p-5 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-zinc-700 dark:focus-visible:ring-zinc-500 dark:focus-visible:ring-offset-zinc-950"
             >
               <div className="mb-3 flex items-center justify-between">
                 <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-zinc-100 text-zinc-600 transition-colors group-hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-400 dark:group-hover:bg-zinc-700">
-                  <FileText size={18} />
+                  <FileText size={18} aria-hidden="true" />
                 </div>
                 <span
                   className={`inline-block rounded-full px-2.5 py-0.5 text-xs font-medium ${difficultyStyles[example.difficulty]}`}
@@ -180,7 +182,7 @@ export function ExampleSearch({ examples, categories }: ExampleSearchProps) {
           ))}
         </div>
       ) : (
-        <div className="mt-8 rounded-lg border border-zinc-200 bg-zinc-50 p-8 text-center dark:border-zinc-800 dark:bg-zinc-900">
+        <div className="mt-8 rounded-lg border border-dashed border-zinc-300 bg-zinc-50 p-8 text-center dark:border-zinc-700 dark:bg-zinc-900">
           <p className="text-sm text-zinc-500 dark:text-zinc-400">
             {t("noSearchResults")}
           </p>
