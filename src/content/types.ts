@@ -55,6 +55,32 @@ export interface PromptStep {
 
   /** A realistic mock AI output that this prompt version would produce. */
   aiOutput: string;
+
+  // ── Norwegian translations (optional) ──────────────────────────────
+
+  /** Norwegian: The full prompt text for this version. */
+  prompt_no?: string;
+
+  /** Norwegian: A short description of what changed. */
+  changes_no?: string;
+
+  /** Norwegian: Strengths of this prompt version. */
+  pros_no?: string[];
+
+  /** Norwegian: Weaknesses or areas still needing improvement. */
+  cons_no?: string[];
+
+  /** Norwegian: Concise reviewer-style feedback. */
+  feedback_no?: string;
+
+  /** Norwegian: The pedagogical rationale. */
+  why_no?: string;
+
+  /** Norwegian: Actionable tips. */
+  tips_no?: string[];
+
+  /** Norwegian: A realistic mock AI output. */
+  aiOutput_no?: string;
 }
 
 /**
@@ -87,6 +113,14 @@ export interface Example {
 
   /** ISO-8601 date string of the last editorial review. */
   lastReviewed: string;
+
+  // ── Norwegian translations (optional) ──────────────────────────────
+
+  /** Norwegian: Human-readable title. */
+  title_no?: string;
+
+  /** Norwegian: One-sentence description of the scenario. */
+  description_no?: string;
 }
 
 /**
@@ -104,4 +138,12 @@ export interface Category {
 
   /** Suggested display order (lower = first). */
   order: number;
+
+  // ── Norwegian translations (optional) ──────────────────────────────
+
+  /** Norwegian: Display name. */
+  name_no?: string;
+
+  /** Norwegian: Short description. */
+  description_no?: string;
 }

@@ -25,11 +25,14 @@ export default function ExamplesPage() {
     difficulty: ex.difficulty,
     stepsCount: ex.steps.length,
     searchableText: ex.steps.map((s) => s.prompt).join(" "),
+    title_no: ex.title_no,
+    description_no: ex.description_no,
   }));
 
   const searchableCategories: SearchableCategory[] = categories.map((cat) => ({
     id: cat.id,
     name: cat.name,
+    name_no: cat.name_no,
   }));
 
   return (

@@ -1,11 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { Bookmark, BookOpen, StickyNote } from "lucide-react";
 import { useBookmarks } from "@/hooks/use-bookmarks";
 import { useNotes } from "@/hooks/use-notes";
 import { allExamples } from "@/content";
+import { getTitle, getDescription } from "@/content/localized";
 import { DifficultyBadge } from "@/components/difficulty-badge";
 import { BookmarkButton } from "@/components/bookmark-button";
 import { NoteEditor } from "@/components/note-editor";
@@ -13,6 +14,7 @@ import { NoteEditor } from "@/components/note-editor";
 export default function CollectionPage() {
   const t = useTranslations("collection");
   const tCommon = useTranslations("common");
+  const locale = useLocale() as "en" | "no";
   const { bookmarks } = useBookmarks();
   const { getNote } = useNotes();
 
@@ -71,11 +73,11 @@ export default function CollectionPage() {
                       className="group"
                     >
                       <h2 className="text-lg font-semibold text-zinc-900 transition-colors group-hover:text-zinc-600 dark:text-zinc-100 dark:group-hover:text-zinc-300">
-                        {example.title}
+                        {getTitle(example, locale)}
                       </h2>
                     </Link>
                     <p className="mt-0.5 text-sm text-zinc-500 dark:text-zinc-400">
-                      {example.description}
+                      {getDescription(example, locale)}
                     </p>
                     <div className="mt-2 flex items-center gap-3">
                       <DifficultyBadge difficulty={example.difficulty} />

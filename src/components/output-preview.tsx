@@ -17,7 +17,7 @@ export function OutputPreview({ output }: OutputPreviewProps) {
         </h3>
       </div>
       <div className="p-4">
-        <div className="whitespace-pre-wrap rounded-md bg-zinc-50 p-4 font-mono text-sm leading-relaxed text-zinc-800 dark:bg-zinc-950 dark:text-zinc-200">
+        <div className="break-words whitespace-pre-wrap rounded-md bg-zinc-50 p-4 font-mono text-sm leading-relaxed text-zinc-800 dark:bg-zinc-950 dark:text-zinc-200">
           {output}
         </div>
       </div>

@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { getCategoryById, getExamplesByCategory } from "@/content";
 import type { CategoryId } from "@/content/types";
+import { getCategoryName, getCategoryDescription } from "@/content/localized";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { ExampleCard } from "@/components/example-card";
 
@@ -31,6 +32,10 @@ function CategoryPageContent({
 }) {
   const t = useTranslations("examples");
   const tNav = useTranslations("nav");
+  const locale = useLocale() as "en" | "no";
+
+  const localizedCategoryName = getCategoryName(category, locale);
+  const localizedCategoryDescription = getCategoryDescription(category, locale);
 
   return (
     <div className="mx-auto max-w-6xl px-6 py-10">
@@ -38,16 +43,16 @@ function CategoryPageContent({
         items={[
           { label: tNav("home"), href: "/" },
           { label: tNav("examples"), href: "/examples" },
-          { label: category.name },
+          { label: localizedCategoryName },
         ]}
       />
 
       <div className="mt-6">
         <h1 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">
-          {category.name}
+          {localizedCategoryName}
         </h1>
         <p className="mt-2 text-lg text-zinc-600 dark:text-zinc-400">
-          {category.description}
+          {localizedCategoryDescription}
         </p>
       </div>
 

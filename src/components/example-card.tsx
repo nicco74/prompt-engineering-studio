@@ -1,8 +1,9 @@
 import Link from "next/link";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { FileText } from "lucide-react";
 import { DifficultyBadge } from "@/components/difficulty-badge";
 import type { Example } from "@/content/types";
+import { getTitle, getDescription } from "@/content/localized";
 
 interface ExampleCardProps {
   example: Example;
@@ -10,6 +11,7 @@ interface ExampleCardProps {
 
 export function ExampleCard({ example }: ExampleCardProps) {
   const t = useTranslations("common");
+  const locale = useLocale() as "en" | "no";
 
   return (
     <Link
@@ -23,10 +25,10 @@ export function ExampleCard({ example }: ExampleCardProps) {
         <DifficultyBadge difficulty={example.difficulty} />
       </div>
       <h3 className="text-base font-semibold text-zinc-900 dark:text-zinc-100">
-        {example.title}
+        {getTitle(example, locale)}
       </h3>
       <p className="mt-1 flex-1 text-sm text-zinc-600 dark:text-zinc-400">
-        {example.description}
+        {getDescription(example, locale)}
       </p>
       <p className="mt-3 text-xs font-medium text-zinc-500 dark:text-zinc-500">
         {t("stepsCount", { count: example.steps.length })}

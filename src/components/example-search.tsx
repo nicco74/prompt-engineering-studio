@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { Search, Filter, FileText } from "lucide-react";
 import type { CategoryId, Difficulty } from "@/content/types";
 
@@ -21,11 +21,16 @@ export interface SearchableExample {
   stepsCount: number;
   /** Concatenated prompt text from all steps, used for keyword matching. */
   searchableText: string;
+  /** Norwegian title (optional). */
+  title_no?: string;
+  /** Norwegian description (optional). */
+  description_no?: string;
 }
 
 export interface SearchableCategory {
   id: CategoryId;
   name: string;
+  name_no?: string;
 }
 
 interface ExampleSearchProps {
@@ -36,6 +41,7 @@ interface ExampleSearchProps {
 export function ExampleSearch({ examples, categories }: ExampleSearchProps) {
   const t = useTranslations("examples");
   const tCommon = useTranslations("common");
+  const locale = useLocale() as "en" | "no";
 
   const [query, setQuery] = useState("");
   const [categoryFilter, setCategoryFilter] = useState<string>("all");
@@ -117,7 +123,7 @@ export function ExampleSearch({ examples, categories }: ExampleSearchProps) {
               <option value="all">{t("allCategories")}</option>
               {categories.map((cat) => (
                 <option key={cat.id} value={cat.id}>
-                  {cat.name}
+                  {locale === "no" && cat.name_no ? cat.name_no : cat.name}
                 </option>
               ))}
             </select>
@@ -162,10 +168,10 @@ export function ExampleSearch({ examples, categories }: ExampleSearchProps) {
                 </span>
               </div>
               <h3 className="text-base font-semibold text-zinc-900 dark:text-zinc-100">
-                {example.title}
+                {locale === "no" && example.title_no ? example.title_no : example.title}
               </h3>
               <p className="mt-1 flex-1 text-sm text-zinc-600 dark:text-zinc-400">
-                {example.description}
+                {locale === "no" && example.description_no ? example.description_no : example.description}
               </p>
               <p className="mt-3 text-xs font-medium text-zinc-500 dark:text-zinc-500">
                 {tCommon("stepsCount", { count: example.stepsCount })}

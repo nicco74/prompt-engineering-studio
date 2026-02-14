@@ -38,6 +38,15 @@ export const PromptStepSchema = z.object({
   why: z.string().min(1),
   tips: z.array(z.string().min(1)).min(1),
   aiOutput: z.string().min(1),
+  // Norwegian translations (optional)
+  prompt_no: z.string().min(1).optional(),
+  changes_no: z.string().min(1).optional(),
+  pros_no: z.array(z.string().min(1)).min(1).optional(),
+  cons_no: z.array(z.string().min(1)).min(1).optional(),
+  feedback_no: z.string().min(1).optional(),
+  why_no: z.string().min(1).optional(),
+  tips_no: z.array(z.string().min(1)).min(1).optional(),
+  aiOutput_no: z.string().min(1).optional(),
 });
 
 // ---------------------------------------------------------------------------
@@ -62,6 +71,9 @@ export const ExampleSchema = z
     category: CategoryIdSchema,
     difficulty: DifficultySchema,
     steps: z.array(PromptStepSchema).min(3).max(5),
+    // Norwegian translations (optional)
+    title_no: z.string().min(1).optional(),
+    description_no: z.string().min(1).optional(),
     lastReviewed: z
       .string()
       .regex(
@@ -86,6 +98,9 @@ export const CategorySchema = z.object({
   name: z.string().min(1),
   description: z.string().min(1),
   order: z.number().int().min(0),
+  // Norwegian translations (optional)
+  name_no: z.string().min(1).optional(),
+  description_no: z.string().min(1).optional(),
 });
 
 // ---------------------------------------------------------------------------

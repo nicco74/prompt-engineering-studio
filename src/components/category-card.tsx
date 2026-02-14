@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { FolderOpen } from "lucide-react";
 import type { Category } from "@/content/types";
+import { getCategoryName, getCategoryDescription } from "@/content/localized";
 
 interface CategoryCardProps {
   category: Category;
@@ -10,6 +11,7 @@ interface CategoryCardProps {
 
 export function CategoryCard({ category, exampleCount }: CategoryCardProps) {
   const t = useTranslations("common");
+  const locale = useLocale() as "en" | "no";
 
   return (
     <Link
@@ -20,10 +22,10 @@ export function CategoryCard({ category, exampleCount }: CategoryCardProps) {
         <FolderOpen size={20} />
       </div>
       <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">
-        {category.name}
+        {getCategoryName(category, locale)}
       </h3>
       <p className="mt-1 flex-1 text-sm text-zinc-600 dark:text-zinc-400">
-        {category.description}
+        {getCategoryDescription(category, locale)}
       </p>
       <p className="mt-4 text-xs font-medium text-zinc-500 dark:text-zinc-500">
         {t("examplesCount", { count: exampleCount })}

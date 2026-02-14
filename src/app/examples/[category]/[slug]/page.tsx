@@ -1,7 +1,13 @@
 import { notFound } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { getCategoryById, getExampleBySlug } from "@/content";
-import type { CategoryId, Example } from "@/content/types";
+import type { CategoryId, Example, Category } from "@/content/types";
+import {
+  getTitle,
+  getDescription,
+  getAiOutput,
+  getCategoryName,
+} from "@/content/localized";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { DifficultyBadge } from "@/components/difficulty-badge";
 import { PromptStepView } from "@/components/prompt-step-view";
@@ -43,7 +49,7 @@ export default async function ExampleDetailPage({
   return (
     <ExampleDetailContent
       example={example}
-      categoryName={category.name}
+      category={category}
       categoryId={categoryId}
       currentVersion={currentVersion}
       currentStep={currentStep}
@@ -53,18 +59,24 @@ export default async function ExampleDetailPage({
 
 function ExampleDetailContent({
   example,
-  categoryName,
+  category,
   categoryId,
   currentVersion,
   currentStep,
 }: {
   example: Example;
-  categoryName: string;
+  category: Category;
   categoryId: string;
   currentVersion: number;
   currentStep: Example["steps"][number];
 }) {
   const tNav = useTranslations("nav");
+  const locale = useLocale() as "en" | "no";
+
+  const localizedTitle = getTitle(example, locale);
+  const localizedDescription = getDescription(example, locale);
+  const localizedAiOutput = getAiOutput(currentStep, locale);
+  const localizedCategoryName = getCategoryName(category, locale);
 
   const basePath = `/examples/${categoryId}/${example.slug}`;
 
@@ -74,8 +86,8 @@ function ExampleDetailContent({
         items={[
           { label: tNav("home"), href: "/" },
           { label: tNav("examples"), href: "/examples" },
-          { label: categoryName, href: `/examples/${categoryId}` },
-          { label: example.title },
+          { label: localizedCategoryName, href: `/examples/${categoryId}` },
+          { label: localizedTitle },
         ]}
       />
 
@@ -83,10 +95,10 @@ function ExampleDetailContent({
       <div className="mt-6 flex items-start justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">
-            {example.title}
+            {localizedTitle}
           </h1>
           <p className="mt-1 text-zinc-600 dark:text-zinc-400">
-            {example.description}
+            {localizedDescription}
           </p>
         </div>
         <div className="flex items-center gap-3">
@@ -116,7 +128,7 @@ function ExampleDetailContent({
 
         {/* Right: AI output preview */}
         <div className="lg:sticky lg:top-6 lg:self-start">
-          <OutputPreview output={currentStep.aiOutput} />
+          <OutputPreview output={localizedAiOutput} />
         </div>
       </div>
 

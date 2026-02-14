@@ -1,4 +1,4 @@
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import {
   RefreshCw,
   ThumbsUp,
@@ -8,6 +8,15 @@ import {
   Lightbulb,
 } from "lucide-react";
 import type { PromptStep } from "@/content/types";
+import {
+  getPrompt,
+  getChanges,
+  getPros,
+  getCons,
+  getFeedback,
+  getWhy,
+  getTips,
+} from "@/content/localized";
 import { CopyButton } from "@/components/copy-button";
 
 interface PromptStepViewProps {
@@ -18,6 +27,15 @@ interface PromptStepViewProps {
 export function PromptStepView({ step, totalSteps }: PromptStepViewProps) {
   const t = useTranslations("examples");
   const tCommon = useTranslations("common");
+  const locale = useLocale() as "en" | "no";
+
+  const localizedPrompt = getPrompt(step, locale);
+  const localizedChanges = getChanges(step, locale);
+  const localizedPros = getPros(step, locale);
+  const localizedCons = getCons(step, locale);
+  const localizedFeedback = getFeedback(step, locale);
+  const localizedWhy = getWhy(step, locale);
+  const localizedTips = getTips(step, locale);
 
   return (
     <div className="space-y-5">
@@ -41,7 +59,7 @@ export function PromptStepView({ step, totalSteps }: PromptStepViewProps) {
           {t("changes")}
         </div>
         <p className="text-sm text-zinc-600 dark:text-zinc-400">
-          {step.changes}
+          {localizedChanges}
         </p>
       </div>
 
@@ -51,10 +69,10 @@ export function PromptStepView({ step, totalSteps }: PromptStepViewProps) {
           <span className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
             {tCommon("prompt")}
           </span>
-          <CopyButton text={step.prompt} />
+          <CopyButton text={localizedPrompt} />
         </div>
         <div className="whitespace-pre-wrap rounded-md bg-zinc-50 p-4 font-mono text-sm leading-relaxed text-zinc-800 dark:bg-zinc-950 dark:text-zinc-200">
-          {step.prompt}
+          {localizedPrompt}
         </div>
       </div>
 
@@ -66,7 +84,7 @@ export function PromptStepView({ step, totalSteps }: PromptStepViewProps) {
             {t("pros")}
           </div>
           <ul className="space-y-1.5">
-            {step.pros.map((pro, i) => (
+            {localizedPros.map((pro, i) => (
               <li
                 key={i}
                 className="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400"
@@ -84,7 +102,7 @@ export function PromptStepView({ step, totalSteps }: PromptStepViewProps) {
             {t("cons")}
           </div>
           <ul className="space-y-1.5">
-            {step.cons.map((con, i) => (
+            {localizedCons.map((con, i) => (
               <li
                 key={i}
                 className="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400"
@@ -104,7 +122,7 @@ export function PromptStepView({ step, totalSteps }: PromptStepViewProps) {
           {t("feedback")}
         </div>
         <p className="text-sm text-zinc-600 dark:text-zinc-400">
-          {step.feedback}
+          {localizedFeedback}
         </p>
       </div>
 
@@ -114,7 +132,7 @@ export function PromptStepView({ step, totalSteps }: PromptStepViewProps) {
           <HelpCircle size={15} />
           {t("why")}
         </div>
-        <p className="text-sm text-zinc-600 dark:text-zinc-400">{step.why}</p>
+        <p className="text-sm text-zinc-600 dark:text-zinc-400">{localizedWhy}</p>
       </div>
 
       {/* Tips */}
@@ -124,7 +142,7 @@ export function PromptStepView({ step, totalSteps }: PromptStepViewProps) {
           {t("tips")}
         </div>
         <ul className="space-y-1.5">
-          {step.tips.map((tip, i) => (
+          {localizedTips.map((tip, i) => (
             <li
               key={i}
               className="flex items-start gap-2 text-sm text-amber-800 dark:text-amber-300"
