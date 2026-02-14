@@ -7,6 +7,8 @@ import { DifficultyBadge } from "@/components/difficulty-badge";
 import { PromptStepView } from "@/components/prompt-step-view";
 import { OutputPreview } from "@/components/output-preview";
 import { VersionNav } from "@/components/version-nav";
+import { BookmarkButton } from "@/components/bookmark-button";
+import { NoteEditor } from "@/components/note-editor";
 
 interface ExampleDetailPageProps {
   params: Promise<{ category: string; slug: string }>;
@@ -87,7 +89,10 @@ function ExampleDetailContent({
             {example.description}
           </p>
         </div>
-        <DifficultyBadge difficulty={example.difficulty} />
+        <div className="flex items-center gap-3">
+          <BookmarkButton slug={example.slug} />
+          <DifficultyBadge difficulty={example.difficulty} />
+        </div>
       </div>
 
       {/* Version navigation (top) */}
@@ -122,6 +127,11 @@ function ExampleDetailContent({
           totalVersions={example.steps.length}
           basePath={basePath}
         />
+      </div>
+
+      {/* Personal notes */}
+      <div className="mt-8">
+        <NoteEditor slug={example.slug} />
       </div>
     </div>
   );

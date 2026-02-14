@@ -206,4 +206,61 @@
 3. User can click a copy button on any prompt version and the prompt text is copied to their clipboard with visual confirmation
 
 ### Next steps
-- Phase 6 or continuing with remaining phases
+- Phase 6: Personalization — Bookmarks & Notes
+
+---
+
+## Phase 6: Personalization — Bookmarks & Notes
+**Status:** COMPLETE
+**Date:** 2026-02-14
+
+### What was done
+- Created generic `useLocalStorage` hook using `useSyncExternalStore` for SSR-safe, cross-tab-synced localStorage access
+- All localStorage keys namespaced with `pes:` prefix (e.g. `pes:bookmarks`, `pes:notes`)
+- Created `useBookmarks` hook — manages an array of bookmarked example slugs stored at `pes:bookmarks`
+- Created `useNotes` hook — manages an object mapping example slugs to note text stored at `pes:notes`
+- Created `BookmarkButton` component — toggles bookmark state with filled/outlined Lucide `Bookmark`/`BookmarkCheck` icons, amber color when active
+- Created `NoteEditor` component — textarea with auto-save on blur and 500ms debounce while typing, syncs across tabs
+- Integrated `BookmarkButton` into the example detail page header (next to difficulty badge)
+- Integrated `NoteEditor` into the example detail page (below bottom version navigation)
+- Created `/collection` page showing all bookmarked examples with:
+  - Card layout with title, description, difficulty badge, step count
+  - Inline note display (amber highlight) and editable note editor
+  - Bookmark toggle and "View example" link per card
+  - Empty state with icon, message, and "Browse Examples" CTA button
+- Added 6 new translation keys to both `en.json` and `no.json` (bookmark, bookmarked, addBookmark, removeBookmark, viewExample, browseExamples)
+- All localStorage access is in "use client" components only
+- TypeScript compiles with zero errors (`npx tsc --noEmit` passes)
+- ESLint passes with zero errors on all new files
+- Full production build passes (`npm run build`)
+
+### Files created
+- `src/hooks/use-local-storage.ts` — Generic namespaced localStorage hook (useSyncExternalStore)
+- `src/hooks/use-bookmarks.ts` — Bookmark management hook (pes:bookmarks)
+- `src/hooks/use-notes.ts` — Note management hook (pes:notes)
+- `src/components/bookmark-button.tsx` — "use client" bookmark toggle button
+- `src/components/note-editor.tsx` — "use client" auto-saving note textarea
+- `src/app/collection/page.tsx` — "use client" collection page with bookmarks and notes
+
+### Files modified
+- `src/app/examples/[category]/[slug]/page.tsx` — Added BookmarkButton and NoteEditor to example detail view
+- `messages/en.json` — Added collection personalization keys (already had base keys from Phase 5)
+- `messages/no.json` — Added collection personalization keys (already had base keys from Phase 5)
+- `progress.md` — Updated with Phase 6 status
+
+### Architecture notes
+- `useLocalStorage` uses `useSyncExternalStore` (React 18+) to avoid the setState-in-effect antipattern
+- Cross-tab sync works via the native `storage` event; same-tab updates dispatch a synthetic `StorageEvent`
+- Server renders return `initialValue` (empty array / empty object) — no hydration mismatch
+- The collection page is a fully client-rendered page since all its data comes from localStorage
+- Notes auto-save with 500ms debounce on typing and immediate save on blur
+- Empty notes are cleaned up (key removed from storage) to prevent stale data accumulation
+
+### Success criteria met
+1. User can click a bookmark icon on any example and see it toggled as bookmarked
+2. User can type a personal note on any example and it persists across page reloads
+3. User can navigate to a "My Collection" page and see all bookmarked examples with their notes
+4. All user state (bookmarks, notes) is stored in localStorage with namespaced keys (pes:bookmarks, pes:notes) and survives browser refresh
+
+### Next steps
+- Phase 7 or continuing with remaining phases
