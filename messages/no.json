@@ -52,7 +52,14 @@
     "intermediate": "Middels",
     "advanced": "Avansert",
     "categoryNotFound": "Kategori ikke funnet",
-    "exampleNotFound": "Eksempel ikke funnet"
+    "exampleNotFound": "Eksempel ikke funnet",
+    "searchPlaceholder": "Sok etter eksempler etter tittel, beskrivelse eller prompttekst...",
+    "allCategories": "Alle kategorier",
+    "allDifficulties": "Alle vanskelighetsgrader",
+    "filterByCategory": "Filtrer etter kategori",
+    "filterByDifficulty": "Filtrer etter vanskelighetsgrad",
+    "resultsCount": "{count} {count, plural, one {eksempel} other {eksempler}} funnet",
+    "noSearchResults": "Ingen eksempler samsvarer med soket ditt. Prov andre nokkelord eller filtre."
   },
   "categories": {
     "contentMarketing": "Innhold og markedsforing",
@@ -67,14 +74,24 @@
     "getFeedback": "Fa tilbakemelding",
     "aiResponse": "AI-svar",
     "promptFeedback": "Prompt-tilbakemelding",
-    "requestsRemaining": "foresporsler igjen"
+    "requestsRemaining": "foresporsler igjen",
+    "rateLimitExceeded": "Du har nadd grensen for antall foresporsler. Vennligst prov igjen senere.",
+    "unauthorized": "Vennligst logg inn for a bruke sandkassen.",
+    "aiError": "Kunne ikke fa AI-svar. Vennligst prov igjen.",
+    "emptyPrompt": "Vennligst skriv inn en prompt for du sender."
   },
   "collection": {
     "title": "Min samling",
     "subtitle": "Dine bokmerkede eksempler og personlige notater",
     "noBookmarks": "Ingen bokmerker enna. Utforsk eksempler og bokmerk favorittene dine!",
     "addNote": "Legg til et notat...",
-    "notes": "Notater"
+    "notes": "Notater",
+    "bookmark": "Bokmerk",
+    "bookmarked": "Bokmerket",
+    "addBookmark": "Legg til i bokmerker",
+    "removeBookmark": "Fjern fra bokmerker",
+    "viewExample": "Se eksempel",
+    "browseExamples": "Utforsk eksempler"
   },
   "auth": {
     "title": "Logg inn",

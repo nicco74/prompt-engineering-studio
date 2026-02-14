@@ -8,6 +8,7 @@ import {
   Lightbulb,
 } from "lucide-react";
 import type { PromptStep } from "@/content/types";
+import { CopyButton } from "@/components/copy-button";
 
 interface PromptStepViewProps {
   step: PromptStep;
@@ -46,8 +47,11 @@ export function PromptStepView({ step, totalSteps }: PromptStepViewProps) {
 
       {/* Prompt text */}
       <div className="rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
-        <div className="mb-2 text-sm font-medium text-zinc-700 dark:text-zinc-300">
-          {tCommon("prompt")}
+        <div className="mb-2 flex items-center justify-between">
+          <span className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
+            {tCommon("prompt")}
+          </span>
+          <CopyButton text={step.prompt} />
         </div>
         <div className="whitespace-pre-wrap rounded-md bg-zinc-50 p-4 font-mono text-sm leading-relaxed text-zinc-800 dark:bg-zinc-950 dark:text-zinc-200">
           {step.prompt}

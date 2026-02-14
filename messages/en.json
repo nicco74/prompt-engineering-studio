@@ -52,7 +52,14 @@
     "intermediate": "Intermediate",
     "advanced": "Advanced",
     "categoryNotFound": "Category not found",
-    "exampleNotFound": "Example not found"
+    "exampleNotFound": "Example not found",
+    "searchPlaceholder": "Search examples by title, description, or prompt text...",
+    "allCategories": "All Categories",
+    "allDifficulties": "All Difficulties",
+    "filterByCategory": "Filter by category",
+    "filterByDifficulty": "Filter by difficulty",
+    "resultsCount": "{count} {count, plural, one {example} other {examples}} found",
+    "noSearchResults": "No examples match your search. Try different keywords or filters."
   },
   "categories": {
     "contentMarketing": "Content & Marketing",
@@ -67,14 +74,24 @@
     "getFeedback": "Get Feedback",
     "aiResponse": "AI Response",
     "promptFeedback": "Prompt Feedback",
-    "requestsRemaining": "requests remaining"
+    "requestsRemaining": "requests remaining",
+    "rateLimitExceeded": "You have reached the request limit. Please try again later.",
+    "unauthorized": "Please sign in to use the sandbox.",
+    "aiError": "Failed to get AI response. Please try again.",
+    "emptyPrompt": "Please enter a prompt before submitting."
   },
   "collection": {
     "title": "My Collection",
     "subtitle": "Your bookmarked examples and personal notes",
     "noBookmarks": "No bookmarks yet. Browse examples and bookmark your favorites!",
     "addNote": "Add a note...",
-    "notes": "Notes"
+    "notes": "Notes",
+    "bookmark": "Bookmark",
+    "bookmarked": "Bookmarked",
+    "addBookmark": "Add to bookmarks",
+    "removeBookmark": "Remove from bookmarks",
+    "viewExample": "View example",
+    "browseExamples": "Browse Examples"
   },
   "auth": {
     "title": "Sign In",
